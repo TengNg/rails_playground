@@ -1,0 +1,29 @@
+<%= form_with(
+    model: article,
+    url: url,
+    method: method,
+    html: { style: 'width: fit-content; height: fit-content',
+    class: 'border border-dark p-3 w-fit' }
+) do |form| %>
+    <div>
+        <%= form.label :title, "This is a title" %><br>
+        <%= form.text_field :title %>
+    </div>
+
+    <div>
+        <%= form.label :body %><br>
+        <%= form.text_area :body %>
+    </div>
+
+    <div>
+        <%= form.submit %>
+    </div>
+
+    <% article.errors.full_messages_for(:body).each do |message| %>
+        <div><%= message %></div>
+    <% end %>
+
+    <% article.errors.full_messages_for(:title).each do |message| %>
+        <div><%= message %></div>
+    <% end %>
+<% end %>

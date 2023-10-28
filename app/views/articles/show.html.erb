@@ -1,0 +1,32 @@
+<h1><%= @article.title %></h1>
+<p><%= @article.body %></p>
+
+<ul class="list-group">
+    <li> <a href="/articles/<%= @article.id %>/edit">Edit</a> </li>
+    <li>
+        <a href="/articles/<%= @article.id %>"
+            data-turbo-method="delete"
+            data-turbo-confirm="Are you sure?">
+            Delete
+        </a>
+    </li>
+    <li> <a href="/articles">Back to /articles</a> </li>
+</ul>
+
+<hr />
+<h4>Comments</h4>
+<% if @article.comments.empty? %>
+    <p>No comments</p>
+<% else %>
+    <%= render @article.comments %>
+<% end %>
+<!-- <% @article.comments.each do |comment| %> -->
+<!--     <p> -->
+<!--         <strong><%= comment.commenter %></strong>: -->
+<!--         <%= comment.body %> -->
+<!--     </p> -->
+<!-- <% end %> -->
+
+<hr />
+<%= render "comments/form" %>
+
