@@ -10,12 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2023_10_28_155052) do
+ActiveRecord::Schema[7.1].define(version: 2023_10_29_053647) do
+  create_table "albums", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_albums_on_user_id"
+  end
+
   create_table "articles", force: :cascade do |t|
     t.string "title"
     t.text "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "avatars", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id"], name: "index_avatars_on_user_id"
   end
 
   create_table "comments", force: :cascade do |t|
@@ -27,5 +41,28 @@ ActiveRecord::Schema[7.1].define(version: 2023_10_28_155052) do
     t.index ["article_id"], name: "index_comments_on_article_id"
   end
 
+  create_table "images", force: :cascade do |t|
+    t.string "imageable_type", null: false
+    t.integer "imageable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["imageable_type", "imageable_id"], name: "index_images_on_imageable"
+  end
+
+  create_table "photos", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "album_id", null: false
+    t.index ["album_id"], name: "index_photos_on_album_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "albums", "users"
   add_foreign_key "comments", "articles"
+  add_foreign_key "photos", "albums"
 end
